@@ -2,15 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('review-form');
     const reviewsList = document.getElementById('reviews-list');
 
-    // Load existing reviews from the server
-    fetch('/reviews')
-        .then(response => response.json())
-        .then(reviews => {
-            reviews.forEach(review => {
-                displayReview(review);
-            });
-        });
-
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -21,19 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const newReview = { professor, subject, rating, comment };
 
-        // Send review to the server
-        fetch('/submit-review', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newReview),
-        })
-        .then(response => response.json())
-        .then(review => {
-            displayReview(review);
-            form.reset();
-        });
+        displayReview(newReview);
+        form.reset();
     });
 
     function displayReview(review) {
